@@ -1,56 +1,79 @@
-ATIVIDADE AVALIATIVA – ESTRUTURAS DE DADOS
-PARTE 1 – PESQUISA: BUBBLE SORT E QUICK SORT
-Bubble Sort
-O Bubble Sort é um algoritmo de ordenação baseado na comparação entre elementos vizinhos. O algoritmo percorre o array várias vezes, comparando dois elementos consecutivos. Quando eles estão na ordem errada, são trocados.
+# ATIVIDADE AVALIATIVA – ESTRUTURAS DE DOS
+## Arrays, Matrizes, Algoritmos de Ordenação e Busca
 
-A cada passagem, os maiores elementos vão sendo deslocados para o final do array, como se "flutuassem" para sua posição correta.
+---
 
-A lógica básica é:
+## PARTE 1 – PESQUISA: BUBBLE SORT E QUICK SORT
 
-Percorrer o array.
-Comparar elementos vizinhos.
-Trocar os elementos quando estiverem fora de ordem.
-Repetir o processo até que o array esteja ordenado.
-Sua complexidade é:
+### 1. Bubble Sort
 
-Melhor caso: O(n), quando o algoritmo possui uma verificação que detecta que não houve trocas e o array já está ordenado.
-Caso médio: O(n²).
-Pior caso: O(n²).
-Memória auxiliar: O(1).
-A principal vantagem é sua simplicidade de implementação e compreensão. A principal limitação é o grande número de operações para arrays grandes.
+#### Como funciona / lógica de ordenação:
+O algoritmo percorre o array repetidamente, comparando pares de elementos adjacentes e trocando-os de posição quando estão fora de ordem. A cada passagem completa, o maior elemento "borbulha" até o final do array. O processo se repete até que uma passagem inteira ocorra sem nenhuma troca, indicando que o array está ordenado.
 
-É adequado para pequenos conjuntos de dados e situações educacionais. Não é recomendado para grandes quantidades de elementos quando existem algoritmos mais eficientes.
+#### Complexidade de Tempo:
+*   **Melhor caso:** $O(n)$ – Ocorre quando o array já está ordenado (necessita de uma otimização com flag de parada antecipada).
+*   **Caso médio:** $O(n^2)$ – Comparações e trocas crescem quadraticamente.
+*   **Pior caso:** $O(n^2)$ – Ocorre quando o array está em ordem inversamente ordenada.
 
-Quick Sort
-O Quick Sort utiliza a estratégia de divisão e conquista. Ele escolhe um elemento chamado pivô e reorganiza os elementos de maneira que os menores que o pivô fiquem de um lado e os maiores fiquem do outro.
+#### Vantagens:
+*   Extremamente simples de entender e implementar.
+*   Algoritmo *in-place* (não exige memória extra significativa).
+*   Algoritmo estável (mantém a ordem relativa de elementos iguais).
 
-Depois, o mesmo processo é aplicado recursivamente às duas partes do array.
+#### Limitações:
+*   Altamente ineficiente para grandes volumes de dados.
+*   O número de trocas e comparações cresce muito rápido conforme $n$ aumenta.
 
-A lógica básica é:
+#### Situações de uso adequado:
+*   Fins educacionais para introduzir o conceito de ordenação.
+*   Arrays pequenos onde a simplicidade do código importa mais do que a performance.
+*   Arrays que já estão quase totalmente ordenados.
 
-Escolher um pivô.
-Particionar o array.
-Colocar os elementos menores de um lado e os maiores do outro.
-Aplicar o algoritmo recursivamente às duas partes.
-Continuar até que todas as partes estejam ordenadas.
-Sua complexidade é:
+#### Situações não recomendadas:
+*   Aplicações comerciais ou sistemas de produção.
+*   Conjuntos de dados de médio a grande porte.
 
-Melhor caso: O(n log n).
-Caso médio: O(n log n).
-Pior caso: O(n²).
-Memória: normalmente O(log n) devido à recursão, podendo chegar a O(n) no pior caso.
-Sua principal vantagem é apresentar excelente desempenho médio, principalmente em conjuntos grandes. Sua principal limitação é que uma escolha ruim do pivô pode levar ao pior caso O(n²).
+---
 
-É adequado para ordenar grandes conjuntos de dados. Não é a melhor escolha quando é necessário garantir desempenho O(n log n) no pior caso sem técnicas adicionais para escolha do pivô.
+### 2. Quick Sort
 
-Tabela comparativa
-Característica	Bubble Sort	Quick Sort
-Princípio de funcionamento	Compara e troca elementos vizinhos	Divide o array utilizando um pivô
-Melhor caso	O(n)	O(n log n)
-Caso médio	O(n²)	O(n log n)
-Pior caso	O(n²)	O(n²)
-Uso de memória	O(1)	O(log n) em média
-Vantagem principal	Simples de entender e implementar	Muito eficiente em arrays grandes
-Limitação principal	Muitas operações em grandes arrays	Pode atingir O(n²) com pivô ruim
-Aplicação recomendada	Arrays pequenos	Arrays médios e grandes
-Aplicação não recomendada	Grandes conjuntos de dados	Quando é necessário garantir O(n lo
+#### Como funciona / lógica de ordenação:
+Baseia-se na estratégia de **Divisão e Conquista**. O algoritmo escolhe um elemento como **pivô** e particiona o array de modo que todos os elementos menores que o pivô fiquem à sua esquerda e os maiores à sua direita. O processo é aplicado recursivamente nas subpartições esquerda e direita até que todo o array esteja ordenado.
+
+#### Complexidade de Tempo:
+*   **Melhor caso:** $O(n \log n)$ – Ocorre quando o pivô divide o array sempre em duas metades balanceadas.
+*   **Caso médio:** $O(n \log n)$ – Na grande maioria dos cenários reais com distribuições aleatórias.
+*   **Pior caso:** $O(n^2)$ – Ocorre quando o pivô escolhido é repetidamente o maior ou o menor elemento (ex: array já ordenado usando o primeiro elemento como pivô).
+
+#### Vantagens:
+*   Extremamente veloz no caso médio.
+*   Possui excelente localidade de referência (aproveita bem o cache do processador).
+*   Ordenação eficiente diretamente no array original (*in-place* para os dados, embora gaste memória com a pilha de recursão).
+
+#### Limitações:
+*   Algoritmo instável (pode alterar a ordem relativa de elementos de mesmo valor).
+*   A performance degrada fortemente para $O(n^2)$ se a escolha do pivô for ruim.
+*   Implementação recursiva pode causar estouro de pilha (*stack overflow*) se não for controlada.
+
+#### Situações de uso adequado:
+*   Ordenação de grandes volumes de dados de uso geral.
+*   Sistemas onde a velocidade média de execução é o fator crítico.
+
+#### Situações não recomendadas:
+*   Sistemas críticos de tempo real onde o pior caso ($O(n^2)$) nunca pode acontecer de forma alguma.
+*   Aplicações que exigem estritamente uma ordenação estável.
+
+---
+
+### Tabela Comparativa
+
+| Característica | Bubble Sort | Quick Sort |
+| :--- | :--- | :--- |
+| **Princípio de funcionamento** | Comparação e troca consecutiva de elementos adjacentes. | Divisão e conquista através do particionamento por um pivô. |
+| **Melhor caso** | $O(n)$ (com otimização de flag) | $O(n \log n)$ |
+| **Caso médio** | $O(n^2)$ | $O(n \log n)$ |
+| **Pior caso** | $O(n^2)$ | $O(n^2)$ (se o pivô for ruim) |
+| **Uso de memória** | $O(1)$ – Não consome memória extra. | $O(\log n)$ – Consumo devido à pilha de recursão. |
+| **Vantagem principal** | Simplicidade extrema e estabilidade dos dados. | Altíssima velocidade no cenário prático e do dia a dia. |
+| **Limitação principal** | Lentidão extrema para conjuntos médios ou grandes. | Instabilidade e queda de rendimento no pior caso. |
+| **Aplicação recomendada** | Listas minúsculas ou quase totalmente ordenadas. | Grandes arrays e bancos de dados generalistas. |
